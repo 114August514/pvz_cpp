@@ -1,0 +1,12 @@
+# peashooter.yaml 示例
+name: "Peashooter"
+id: 101
+hp: 300
+cost: 100
+cooldown: 7.5
+attack:
+  damage: 20
+  interval: 1.5
+  projectile_type: "pea"
+render:
+  sprite: "assets/graphics/plants/peashooter.png"
