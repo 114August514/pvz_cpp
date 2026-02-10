@@ -16,12 +16,12 @@
 PVZ_CPP/
 ├── core/                   # C++ 核心源码
 │   ├── include/            # 头文件 (.hpp)
-│   ├── src/                # 实现文件 (.cpp)
-│   └── binding/            # pybind11 接口定义
+│   └── src/                # 实现文件 (.cpp)
 ├── scripts/                # Python 逻辑脚本
 │   ├── entities/           # 植物与僵尸的具体逻辑
 │   ├── ui/                 # 负责游戏所有非战斗实体的交互界面。
 │   └── main.py             # 游戏入口
+├── binding/                # pybind11 接口定义
 ├── data/                   # YAML 配置文件 (植物、僵尸、关卡)
 ├── assets/                 # 游戏资源 (图片、音频)
 ├── deps/                   # 第三方依赖 (pybind11, yaml-cpp 等)
@@ -46,8 +46,14 @@ PVZ_CPP/
 由于项目包含第三方依赖，请务必使用递归克隆：
 
 ```bash
-git clone --recursive [仓库地址]
+git clone --recursive https://github.com/114August514/pvz_cpp
 cd pvz_cpp
+```
+
+如果仅执行了普通的 `git clone`，请补充拉取子模块：
+
+```bash
+git submodule update --init --recursive
 ```
 
 ### 4.2 编译 C++ 核心
