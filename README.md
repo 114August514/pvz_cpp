@@ -20,7 +20,7 @@ PVZ_CPP/
 │   └── binding/            # pybind11 接口定义
 ├── scripts/                # Python 逻辑脚本
 │   ├── entities/           # 植物与僵尸的具体逻辑
-│   ├── ui/           		# 负责游戏所有非战斗实体的交互界面。
+│   ├── ui/                 # 负责游戏所有非战斗实体的交互界面。
 │   └── main.py             # 游戏入口
 ├── data/                   # YAML 配置文件 (植物、僵尸、关卡)
 ├── assets/                 # 游戏资源 (图片、音频)
