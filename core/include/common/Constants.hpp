@@ -11,6 +11,7 @@ namespace pvz {
         // 窗口与渲染设置 (包括窗口尺寸和帧率)
         inline constexpr int SCREEN_WIDTH = 1024;
         inline constexpr int SCREEN_HEIGHT = 768;
+        inline constexpr const char* WINDOW_TITLE = "PVZ Engineering Edition";
         inline constexpr int FRAME_RATE = 60;
 
         // 草坪网格设置 (pvz 标准 5 x 9)
@@ -29,6 +30,8 @@ namespace pvz {
         inline constexpr int INITIAL_SUN = 50;
         inline constexpr int MAX_PLANT_HEALTH = 300;
         inline constexpr int ZOMBIE_BASIC_HP = 200;
+        inline constexpr float ZOMBIE_WALK_SPEED = -20.0f; // 像素/秒，向左为负
+
     } // namespace config
 } // namespace pvz
 
