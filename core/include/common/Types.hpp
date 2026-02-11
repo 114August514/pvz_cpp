@@ -6,6 +6,8 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#include "common/Constants.hpp"
+
 namespace pvz {
 
 // 游戏状态枚举
@@ -29,12 +31,20 @@ enum class Side {
 struct Vector2 {
     float x;
     float y;
+
+    Vector2(float x = 0.0f, float y = 0.0f) : x(x), y(y) {}
 };
 
 // 网格坐标
 struct GridPos {
     int row;
     int col;
+
+    GridPos(int row = -1, int col = -1) : row(row), col(col) {}
+
+    bool is_valid() const {
+        return row >= 0 && row < config::GRID_ROWS && col >= 0 && col < config::GRID_COLS;
+    }
 
     // 重载 判等，方便查找
     bool operator==(const GridPos& other) const {
