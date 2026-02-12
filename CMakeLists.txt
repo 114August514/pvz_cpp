@@ -119,6 +119,15 @@ set_target_properties(pvz_core PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
 )
 
+if(MINGW)
+    # 强制将 libstdc++ 和 libgcc 静态链接进 pyd，解决 DLL 找不到问题
+    target_link_options(pvz_core PRIVATE 
+        -static-libgcc 
+        -static-libstdc++
+        -Wl,-Bstatic -lwinpthread -Wl,-Bdynamic
+    )    
+endif()
+
 # ==========================================
 # 4. 环境配置 (可选)
 # ==========================================
@@ -126,8 +135,6 @@ set_target_properties(pvz_core PROPERTIES
 # 强制使用静态链接，防止因缺少 DLL 而崩溃
 if(MINGW OR CYGWIN)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
-    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -static")
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static")
 endif()
 
 # ==========================================
