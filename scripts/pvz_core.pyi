@@ -32,11 +32,13 @@ class GridPos:
 
 # === C. 全局常量定义 ===
 
-# config 是一个 submodule，用 class 表示其成员
-class config(ModuleType):
+# config 是一个 submodule（运行时为模块实例）
+class _ConfigModule(ModuleType):
     """全局配置命名空间（submodule）"""
     SCREEN_WIDTH: int
     SCREEN_HEIGHT: int
+
+config: _ConfigModule
 
 # === D. 验证函数 ===
 
