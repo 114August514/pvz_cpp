@@ -73,8 +73,8 @@ file(GLOB_RECURSE ENGINE_SOURCES
     "${CMAKE_SOURCE_DIR}/core/src/framework/*.cpp"
 )
 # 调试时输出源文件列表
-# 正常模式 cmake ..
-# 调试模式 cmake .. --debug-output
+# 正常模式：cmake ..
+# 调试模式：cmake -DCMAKE_MESSAGE_LOG_LEVEL=DEBUG ..  或  cmake --log-level=DEBUG ..
 if(CMAKE_MESSAGE_LOG_LEVEL STREQUAL "DEBUG")
     message(STATUS "Engine sources: ${ENGINE_SOURCES}")  # 调试：显示找到的文件
 endif()
