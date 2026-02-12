@@ -49,14 +49,18 @@ PYBIND11_MODULE(pvz_core, m) {
     // 导出 Vector2 二维向量结构体
     // 用于表示浮点坐标或速度向量
     py::class_<Vector2>(m, "Vector2")
-        .def(py::init<float, float>())          // 构造函数 Vector2(x, y)
+        .def(py::init<float, float>(),          // 构造函数 Vector2(x, y)
+             py::arg("x") = 0.0f,
+             py::arg("y") = 0.0f)
         .def_readwrite("x", &Vector2::x)        // x 坐标，可读写
         .def_readwrite("y", &Vector2::y);       // y 坐标，可读写
 
     // 导出 GridPos 网格坐标结构体
     // 用于表示游戏中的格子坐标 (行,列)
     py::class_<GridPos>(m, "GridPos")
-        .def(py::init<int, int>())            // 构造函数 GridPos(row, col)
+        .def(py::init<int, int>(),            // 构造函数 GridPos(row, col)
+             py::arg("row") = -1,
+             py::arg("col") = -1)
         .def_readwrite("row", &GridPos::row)  // 行索引，可读写
         .def_readwrite("col", &GridPos::col)  // 列索引，可读写
         .def("is_valid", &GridPos::is_valid)  // 验证位置是否在有效范围内
@@ -68,4 +72,10 @@ PYBIND11_MODULE(pvz_core, m) {
     pybind11::module_ m_config = m.def_submodule("config", "Global configurations");
     m_config.attr("SCREEN_WIDTH") = config::SCREEN_WIDTH;
     m_config.attr("SCREEN_HEIGHT") = config::SCREEN_HEIGHT;
+
+    // === D. 简单函数用于验证 ===
+    
+    m.def("hello_world", []() {
+        return "Hello from PVZ Core!";
+    }, "返回欢迎信息，用于验证 C++ 绑定");
 }

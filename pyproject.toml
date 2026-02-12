@@ -5,8 +5,15 @@ description = "PVZ Replication project with C++ and Python"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "pytest>=9.0.2",
     "pyyaml>=6.0.3",
 ]
+
+# ============================================
+# PyPI 镜像配置（可选）
+# ============================================
+# 注：默认使用官方 PyPI
+# 若需加速，可取消下面注释启用清华源
 
 [[tool.uv.index]]
 url = "https://pypi.tuna.tsinghua.edu.cn/simple"
