@@ -80,9 +80,16 @@ cmake --build . --config Release
 确保激活虚拟环境：
 
 ```bash
-# 激活虚拟环境（Windows）
-.venv\Scripts\activate
-# 或 Linux/macOS
+# Windows (cmd)
+.venv\Scripts\activate.bat
+
+# Windows (PowerShell)
+.venv\Scripts\Activate.ps1
+
+# Windows (Git Bash / MSYS2 等 Bash 环境)
+source .venv/Scripts/activate
+
+# Linux / macOS
 source .venv/bin/activate
 
 python scripts/main.py
