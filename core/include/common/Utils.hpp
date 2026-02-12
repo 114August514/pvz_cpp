@@ -6,6 +6,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <cmath>
+
 #include "common/Constants.hpp"
 #include "common/Types.hpp"
 
@@ -29,8 +31,9 @@ public:
      * @return 如果点击在草坪外，可以返回 -1 的坐标进行判断
      */
     static GridPos screen_to_grid(Vector2 pixel) {
-        int col = static_cast<int> ((pixel.x - config::GRID_OFFSET_X) / config::CELL_WIDTH);
-        int row = static_cast<int> ((pixel.y - config::GRID_OFFSET_Y) / config::CELL_HEIGHT);
+        // std::floor 进行向下取整。
+        int col = static_cast<int> (std::floor((pixel.x - config::GRID_OFFSET_X) / config::CELL_WIDTH));
+        int row = static_cast<int> (std::floor((pixel.y - config::GRID_OFFSET_Y) / config::CELL_HEIGHT));
 
         GridPos pos(row, col);
         return pos.is_valid() ? pos : GridPos(-1, -1);
