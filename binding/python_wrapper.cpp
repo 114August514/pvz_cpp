@@ -77,5 +77,5 @@ PYBIND11_MODULE(pvz_core, m) {
     
     m.def("hello_world", []() {
         return "Hello from PVZ Core!";
-    }, "返回欢迎信息，用于验证 Cpp 绑定");
+    }, "返回欢迎信息，用于验证 C++ 绑定");
 }
