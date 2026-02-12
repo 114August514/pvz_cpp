@@ -1,19 +1,20 @@
 from enum import Enum
+from types import ModuleType
 
 # === A. 枚举变量 ===
 
 class Side(Enum):
-    PLANT: int
-    ZOMBIE: int
-    NEUTRAL: int
+    PLANT: Side
+    ZOMBIE: Side
+    NEUTRAL: Side
 
 class GameState(Enum):
-    MENU: int
-    PREPARATION: int
-    PLAYING: int
-    PAUSED: int
-    WIN: int
-    LOSE: int
+    MENU: GameState
+    PREPARATION: GameState
+    PLAYING: GameState
+    PAUSED: GameState
+    WIN: GameState
+    LOSE: GameState
 
 # === B. 结构体定义 ===
 
@@ -31,6 +32,14 @@ class GridPos:
 
 # === C. 全局常量定义 ===
 
-class config:
+# config 是一个 submodule，用 class 表示其成员
+class config(ModuleType):
+    """全局配置命名空间（submodule）"""
     SCREEN_WIDTH: int
     SCREEN_HEIGHT: int
+
+# === D. 验证函数 ===
+
+def hello_world() -> str:
+    """返回欢迎信息，用于验证 C++ 绑定"""
+    ...

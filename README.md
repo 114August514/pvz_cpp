@@ -35,8 +35,8 @@ PVZ_CPP/
 
 * **编译器**: 支持 C++17 的 GCC (9.0+) 或 Clang，或 MSVC (VS2019+)。
 * **构建工具**: CMake (3.15+)。
-* **Python**: Python 3.8+ 及开发环境头文件。
-* **Python 库**: `pip install PyYAML`。
+* **Python**: Python 3.11+ 及开发环境头文件。
+* **依赖管理工具**: `uv`（用于管理 Python 依赖）。
 * **图形库**: 根据选择安装 SFML 或 SDL2。
 
 ## 4. 快速开始
@@ -56,7 +56,16 @@ cd pvz_cpp
 git submodule update --init --recursive
 ```
 
-### 4.2 编译 C++ 核心
+### 4.2 安装 Python 依赖
+
+初次开发前，请设置虚拟环境并安装依赖：
+
+```bash
+uv venv
+uv sync
+```
+
+### 4.3 编译 C++ 核心
 
 编译产生的动态库（`.so` 或 `.pyd`）将供 Python 调用：
 
@@ -66,12 +75,19 @@ cmake ..
 cmake --build . --config Release
 ```
 
-### 4.3 运行游戏
+### 4.4 运行游戏
 
-确保编译产物在 Python 的搜索路径中，然后启动：
+确保激活虚拟环境：
 
 ```bash
+# 激活虚拟环境（Windows）
+.venv\Scripts\activate
+# 或 Linux/macOS
+source .venv/bin/activate
+
 python scripts/main.py
+
+# 如果已经有 uv 了，也可以直接 uv run 运行
 ```
 
 ## 5. 开发规范
@@ -82,6 +98,7 @@ python scripts/main.py
 2. **代码风格**：C++ 遵循 `PascalCase` 类名，Python 遵循 `PEP8`。
 3. **注释规范**：所有公开接口必须包含 Doxygen 或 Docstring 注释。
 4. **YAML 约束**：修改配置后需校验缩进，确保符合 YAML 格式。
+5. **依赖管理**：使用 `uv add <package>` 添加新依赖，禁止直接用 pip。
 
 详细规范请参阅：[CONTRIBUTING.md](./CONTRIBUTING.md)
 

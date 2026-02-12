@@ -8,6 +8,12 @@ dependencies = [
     "pyyaml>=6.0.3",
 ]
 
-[[tool.uv.index]]
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
-default = true
+# ============================================
+# PyPI 镜像配置（可选）
+# ============================================
+# 注：默认使用官方 PyPI
+# 若需加速，可取消下面注释启用清华源
+
+# [[tool.uv.index]]
+# url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+# default = true

@@ -144,5 +144,11 @@
 2. **脚本运行**：Python 启动脚本无 `ImportError`。
 3. **依赖更新**：若引入新库，必须同步更新 `requirements.txt` 或 `CMakeLists.txt`。
 
+   * 若新增 Python 依赖，请执行 `uv add <package>`。
+   * 检查 `pyproject.toml` 和 `uv.lock` 是否同步更新。
+   * 禁止手动修改 `pyproject.toml` 中的版本号（应使用 `uv add` 管理）。
+
+4. **本地环境**：在 `.venv` 环境下测试，确保依赖兼容性。
+
 ---
 **本协议自发布之日起执行。如有修改需求，需经团队成员讨论通过。**

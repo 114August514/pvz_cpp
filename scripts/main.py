@@ -8,7 +8,7 @@ ROOT_DIR = Path(__file__).parent.parent
 # 这样无论在什么环境下执行，都能 import pvz_core
 possible_build_dirs = [
     ROOT_DIR / "build",
-    ROOT_DIR / "cmake/build/debug",
+    ROOT_DIR / "cmake-build-debug",
     ROOT_DIR / "build/Debug",
     ROOT_DIR / "cmake-build-debug/Debug",
 ]
@@ -16,6 +16,7 @@ possible_build_dirs = [
 for build_dir in possible_build_dirs:
     if build_dir.exists():
         sys.path.insert(0, str(build_dir))
+        print(f"Added build path: {build_dir}")
         break
 
 try:
@@ -24,3 +25,7 @@ try:
 except ImportError as e:
     print(f"Failed to import pvz_core: {e}")
     sys.exit(1)
+
+# 验证 C++ 绑定
+message = pvz_core.hello_world()
+print(f"Message from C++: {message}")
