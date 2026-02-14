@@ -1,10 +1,6 @@
 # 通过在根目录运行测试：
 #   pytest tests/test_env.py -s
 
-import sys
-from pathlib import Path
-import pytest
-
 # 1. 导入 scripts.core
 # 关键：这会触发 scripts/__init__.py，
 #       进而自动执行 _env.py 里的 DLL 加载和路径配置
