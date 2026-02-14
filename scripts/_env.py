@@ -1,21 +1,48 @@
 """
 初始化 Python 环境，处理 C++ 扩展加载的依赖问题
 """
+
+# 负责底层环境适配（DLL 路径、Python 搜索路径）。
+
 import sys
 import os
 import shutil
 from pathlib import Path
 from typing import Optional
 
+from .config import BASE_DIR, DEBUG
+
+# 缓存探测到的构建目录，避免重复 IO
+_CACHED_BUILD_DIR: Optional[Path] = None
+
 def _get_build_dir() -> Optional[Path]:
-    """探测构建目录，支持常见的 CMake 构建模式"""
-    root_dir = Path(__file__).parent.parent
-    # 仅检测标准构建目录
+    """探测构建目录，优先选择包含二进制扩展的目录"""
+    global _CACHED_BUILD_DIR
+    if _CACHED_BUILD_DIR:
+        return _CACHED_BUILD_DIR
+
     candidates = [
-        root_dir / "build",
-        root_dir / "cmake-build-debug",
+        BASE_DIR / "build",
+        BASE_DIR / "cmake-build-debug",
+        BASE_DIR / "out",
     ]
-    return next((p for p in candidates if p.is_dir()), None)
+
+    existing_dirs = [p for p in candidates if p.is_dir()]
+
+    # 策略 1：寻找包含二进制模块 (.pyd/.so) 的目录
+    for p in existing_dirs:
+        # 在根目录寻找 pvz_core* 文件 (Windows 后缀为 .pyd；Unix 后缀为 .so)
+        binaries = list(p.glob("pvz_core*.pyd")) + list(p.glob("pvz_core*.so"))
+        if any(f.is_file() for f in binaries):
+            _CACHED_BUILD_DIR = p
+            return p
+
+    # 策略 2：回退到第一个存在的目录
+    if existing_dirs:
+        _CACHED_BUILD_DIR = existing_dirs[0]
+        return existing_dirs[0]
+
+    return None
 
 def setup_dll_paths() -> None:
     """
@@ -51,9 +78,11 @@ def setup_dll_paths() -> None:
             mingw_bin = Path(gxx_path).parent
             try:
                 os.add_dll_directory(str(mingw_bin.resolve()))
-                print(f"Added MinGW DLL path: {mingw_bin}")
+                if DEBUG:
+                    print(f"[ENV] Added MinGW DLL path: {mingw_bin}")
             except Exception as e:
-                print(f"Failed to add MinGW path: {e}")
+                if DEBUG:
+                    print(f"[ENV] Failed to add MinGW path: {e}")
 
     elif sys.platform in ("linux", "linux2", "darwin"):
         # Linux: 添加到 LD_LIBRARY_PATH
