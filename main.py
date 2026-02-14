@@ -1,6 +1,4 @@
-def main():
-    print("Hello from pvz-cpp!")
-
+from scripts import game
 
 if __name__ == "__main__":
-    main()
+    game.run()
